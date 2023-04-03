@@ -1,0 +1,1 @@
+C:\San\POC\Tasks\Tasks\buildSrc\build\classes\kotlin\main\AppBuildConfig.class;C:\San\POC\Tasks\Tasks\buildSrc\build\classes\kotlin\main\Dependencies.class;C:\San\POC\Tasks\Tasks\buildSrc\build\classes\kotlin\main\DependencyUtilsKt.class;C:\San\POC\Tasks\Tasks\buildSrc\build\classes\kotlin\main\Versions.class
