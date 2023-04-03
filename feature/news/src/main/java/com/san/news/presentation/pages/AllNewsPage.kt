@@ -46,6 +46,9 @@ fun AllNewsPage(
             items(list.size) { i ->
                 if (i >= list.size - 1) {
                     viewModel.fetchNews()
+                    LaunchedEffect(key1 = last) {
+                        if (last) Toast.makeText(context, "Reached Last Item", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 NewsItem(news = list[i])
             }
@@ -61,9 +64,6 @@ fun AllNewsPage(
                     }
                 }
             }
-        }
-        LaunchedEffect(key1 = last) {
-            if (last) Toast.makeText(context, "Reached Last Item", Toast.LENGTH_SHORT).show()
         }
 
     }

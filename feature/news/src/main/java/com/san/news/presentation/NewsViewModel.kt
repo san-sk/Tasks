@@ -39,7 +39,6 @@ class NewsViewModel @Inject constructor(private val useCase: NewsUseCase) : View
                 .onStart { isLoading.value = true }
                 .onCompletion {
                     isLoading.value = false
-                    if(!lastPageReached.value) currentPage++
                 }
                 .collectLatest {
                     Timber.e("news-on_collect")
@@ -58,6 +57,7 @@ class NewsViewModel @Inject constructor(private val useCase: NewsUseCase) : View
                             it.result.data?.newslist?.let { news ->
                                 _newsList.value = newsList.value + news
                             }
+                            if(!lastPageReached.value) currentPage++
                         }
 
                         else -> {
