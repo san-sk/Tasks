@@ -73,7 +73,9 @@ fun NewsItem(news: NewsBaseResponse.Data.Newslist) {
                         color = Color.White
                     )
                     AsyncImage(
-                        modifier = Modifier.size(15.dp).weight(.1f),
+                        modifier = Modifier
+                            .size(15.dp)
+                            .weight(.1f),
                         model = news.sourceLogo,
                         contentDescription = news.sourceName
                     )
@@ -86,6 +88,13 @@ fun NewsItem(news: NewsBaseResponse.Data.Newslist) {
                 )
             }
         }
+        Text(
+            modifier = Modifier.padding(4.dp),
+            text = news.id ?: "0",
+            maxLines = 1,
+            style = MaterialTheme.typography.bodySmall,
+            color = colorSubText
+        )
         Divider(
             modifier = Modifier
                 .fillMaxWidth()

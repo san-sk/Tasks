@@ -1,6 +1,5 @@
 package com.san.news.presentation
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.san.core.utils.Resource
@@ -19,10 +18,11 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(private val useCase: NewsUseCase) : ViewModel() {
 
-    private val _newsList = MutableStateFlow<List<NewsBaseResponse.Data.Newslist>>(emptyList())
+    private val _newsList =
+        MutableStateFlow<List<NewsBaseResponse.Data.Newslist>>(listOf())
     val newsList = _newsList.asStateFlow()
 
-    var currentPage = 0
+    private var currentPage = 0
 
     var isLoading = MutableStateFlow(false)
     var lastPageReached = MutableStateFlow(false)
@@ -32,16 +32,14 @@ class NewsViewModel @Inject constructor(private val useCase: NewsUseCase) : View
     }
 
     fun fetchNews() {
-        if (isLoading.value || currentPage > 2) {
-            lastPageReached.value = currentPage > 1
-            return
-        }
+        if (isLoading.value || lastPageReached.value) return
+
         viewModelScope.launch {
             useCase.invoke(currentPage)
                 .onStart { isLoading.value = true }
                 .onCompletion {
                     isLoading.value = false
-                    currentPage++
+                    if(!lastPageReached.value) currentPage++
                 }
                 .collectLatest {
                     Timber.e("news-on_collect")
@@ -56,8 +54,9 @@ class NewsViewModel @Inject constructor(private val useCase: NewsUseCase) : View
                         }
 
                         is Resource.Success -> {
+                            lastPageReached.value = it.result.data?.nextItems == 0
                             it.result.data?.newslist?.let { news ->
-                                _newsList.value = _newsList.value.plus(news)
+                                _newsList.value = newsList.value + news
                             }
                         }
 

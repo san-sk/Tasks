@@ -1,29 +1,27 @@
 package com.san.news.presentation.pages
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.san.core.utils.isScrolledToTheEnd
 import com.san.news.presentation.NewsViewModel
 import com.san.news.presentation.component.NewsItem
 
@@ -35,30 +33,40 @@ fun AllNewsPage(
     val listState = rememberLazyListState()
     val list by viewModel.newsList.collectAsState()
     val last by viewModel.lastPageReached.collectAsState()
-    val loader by viewModel.isLoading.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
     Column(modifier = modifier.fillMaxSize()) {
-        if (loader) {
-            CircularProgressIndicator(
-                Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .size(30.dp)
-            )
-        }
-        if (last) {
-            Toast.makeText(context, "Reached Last Item", Toast.LENGTH_SHORT).show()
-        }
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp), text = list.size.toString()
+        )
+
         LazyColumn(state = listState) {
-            items(list) {
-                NewsItem(news = it)
+            items(list.size) { i ->
+                if (i >= list.size - 1) {
+                    viewModel.fetchNews()
+                }
+                NewsItem(news = list[i])
+            }
+            item {
+                if (isLoading) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
             }
         }
+        LaunchedEffect(key1 = last) {
+            if (last) Toast.makeText(context, "Reached Last Item", Toast.LENGTH_SHORT).show()
+        }
+
     }
-
-    /*if (listState.isScrolledToTheEnd(list.size).value) {
-        viewModel.fetchNews()
-    }*/
-
 }
 
 @Preview
