@@ -29,7 +29,7 @@ fun NewsItem(news: NewsBaseResponse.Data.Newslist) {
     Column(
         Modifier
             .fillMaxWidth()
-            .background(background)
+            .background(MaterialTheme.colorScheme.background)
             .padding(4.dp)
     ) {
         Row {
@@ -70,7 +70,7 @@ fun NewsItem(news: NewsBaseResponse.Data.Newslist) {
                         text = news.title ?: "Not found",
                         maxLines = 2,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                     AsyncImage(
                         modifier = Modifier

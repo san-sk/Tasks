@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
@@ -54,7 +55,7 @@ fun NewsHomePage(
         TabRow(
             selectedTabIndex = selectedTabIndex,
             contentColor = Color.White,
-            containerColor = background,
+            containerColor = MaterialTheme.colorScheme.background,
             indicator = {
                 TabRowDefaults.Indicator(
                     modifier = Modifier.tabIndicatorOffset(it[selectedTabIndex]),
@@ -65,7 +66,7 @@ fun NewsHomePage(
             tabTitles.forEachIndexed { index, title ->
                 Tab(
                     selected = selectedTabIndex == index,
-                    selectedContentColor = Color.White,
+                    selectedContentColor = MaterialTheme.colorScheme.onBackground,
                     unselectedContentColor = colorSubText,
                     onClick = {
                         coroutineScope.launch {
