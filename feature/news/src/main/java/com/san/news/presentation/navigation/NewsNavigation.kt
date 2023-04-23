@@ -15,11 +15,6 @@ fun NewsNavigation(navController: NavHostController) {
         navController = navController, startDestination = "newsHomePge"
     ) {
 
-        /* composable("allNews") {
-             val viewModel = hiltViewModel<NewsViewModel>()
-             AllNewsPage(navController = navController, viewModel = viewModel)
-         }*/
-
         composable("newsHomePge") {
             val viewModel = hiltViewModel<NewsViewModel>()
             NewsHomePage(navController = navController, viewModel = viewModel)

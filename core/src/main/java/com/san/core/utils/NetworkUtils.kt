@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 
 fun <ResultType, RequestType> networkBoundResource(
     query: () -> Flow<ResultType>,
