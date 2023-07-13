@@ -8,8 +8,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,14 +24,14 @@ import com.san.core.sensors.Sensors.getSensorList
 fun MotionScreen() {
     val context = LocalContext.current
     var speed by remember {
-        mutableStateOf()
+        mutableStateOf("")
     }
     LazyColumn {
         items(Sensors.getSensorManager(context)?.getSensorList()!!) {
             SensorItem(it)
         }
         item {
-            Text(text = )
+            Text(text = "")
         }
     }
 }

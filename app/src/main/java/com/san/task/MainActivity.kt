@@ -6,10 +6,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.san.canvas.CanvasActivity
 import com.san.core.base.BaseActivity
 import com.san.news.presentation.NewsActivity
 import com.san.task.ui.theme.TasksTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Stack
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
@@ -27,7 +29,7 @@ class MainActivity : BaseActivity() {
             }
         }*/
 
-        startActivity(Intent(this, NewsActivity::class.java))
+        startActivity(Intent(this, CanvasActivity::class.java))
         finish()
 
     }
