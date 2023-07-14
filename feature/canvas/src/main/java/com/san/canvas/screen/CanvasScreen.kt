@@ -13,8 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asAndroidBitmap
 import com.san.canvas.drawBox.DrawBox
-import com.san.canvas.drawBox.colorComponent.ColorPicker
-import com.san.canvas.drawBox.colorComponent.defaultSelectedColor
+import com.san.canvas.drawBox.components.ColorPicker
+import com.san.canvas.drawBox.components.defaultSelectedColor
 import com.san.canvas.drawBox.rememberDrawController
 
 

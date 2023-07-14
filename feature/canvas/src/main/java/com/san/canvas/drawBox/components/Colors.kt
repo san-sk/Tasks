@@ -1,4 +1,4 @@
-package com.san.canvas.drawBox.colorComponent
+package com.san.canvas.drawBox.components
 
 import androidx.compose.ui.graphics.Color
 

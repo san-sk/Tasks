@@ -1,4 +1,4 @@
-package com.san.canvas.drawBox.colorComponent
+package com.san.canvas.drawBox.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

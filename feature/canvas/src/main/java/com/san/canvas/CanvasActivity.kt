@@ -1,6 +1,7 @@
 package com.san.canvas
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,8 +15,7 @@ import com.san.canvas.screen.CanvasScreen
 import com.san.canvas.ui.theme.TasksTheme
 import com.san.canvas.utils.activityChooser
 import com.san.canvas.utils.checkAndAskPermission
-import com.san.canvas.utils.saveImageOnExternal
-import com.san.canvas.utils.saveImageOnTemp
+import com.san.canvas.utils.saveImageOnCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,9 +34,13 @@ class CanvasActivity : ComponentActivity() {
                     CanvasScreen {
                         checkAndAskPermission {
                             CoroutineScope(Dispatchers.IO).launch {
-                                val uri = saveImageOnExternal(it)
+                                val uri = saveImageOnCache(it)
                                 withContext(Dispatchers.Main) {
-                                    startActivity(activityChooser(uri))
+                                    kotlin.runCatching {
+                                        startActivity(activityChooser(uri))
+                                    }.getOrElse {
+                                        Log.e("Share", it.localizedMessage, it)
+                                    }
                                 }
                             }
                         }
@@ -47,18 +51,12 @@ class CanvasActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     TasksTheme {
-        Greeting("Android")
+        CanvasScreen {
+
+        }
     }
 }

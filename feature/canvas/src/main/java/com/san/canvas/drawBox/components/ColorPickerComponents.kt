@@ -1,4 +1,4 @@
-package com.san.canvas.drawBox.colorComponent
+package com.san.canvas.drawBox.components
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.animateDpAsState
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Circle
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable

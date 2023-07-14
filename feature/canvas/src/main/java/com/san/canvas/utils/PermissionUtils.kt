@@ -13,10 +13,12 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import com.san.canvas.BuildConfig
 import java.io.File
-import kotlin.io.path.useLines
 
 
 internal fun Activity.checkAndAskPermission(continueNext: () -> Unit) {
@@ -32,12 +34,14 @@ internal fun Activity.checkAndAskPermission(continueNext: () -> Unit) {
     continueNext()
 }
 
-internal fun activityChooser(uri: Uri?) = Intent.createChooser(Intent().apply {
-    type = "image/*"
-    action = Intent.ACTION_VIEW
-    data = uri
-    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-}, "Select App")
+internal fun activityChooser(uri: Uri?) = runCatching {
+    Intent.createChooser(Intent().apply {
+        action = Intent.ACTION_VIEW
+        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        setDataAndType(uri,"image/*")
+    }, "Select App")
+}.getOrNull()
+
 
 //writing files to storage via scope and normal manner acc. to Api level
 internal fun Context.saveImageOnExternal(bitmap: Bitmap): Uri? {
@@ -82,14 +86,14 @@ internal fun Context.saveImageOnExternal(bitmap: Bitmap): Uri? {
 }
 
 
-internal fun Context.saveImageOnTemp(bitmap: Bitmap): Uri? {
+internal fun Context.saveImageOnCache(bitmap: Bitmap): Uri? {
     return try {
-        File.createTempFile("${System.nanoTime()}", ".png", cacheDir).apply {
+        val file = File.createTempFile("${System.nanoTime()}", ".png", cacheDir).apply {
             this.outputStream().use {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
             }
-        }.toUri()
-
+        }
+        FileProvider.getUriForFile(this, "com.san.canvas.provider", file)
     } catch (e: Exception) {
         Log.e("Create_File", e.localizedMessage)
         null
