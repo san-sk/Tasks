@@ -1,0 +1,19 @@
+[versions]
+
+#Gradle
+androidGradlePlugin = "7.4.1"
+
+
+#Core Libs
+coreKtx = "1.10.1"
+lifecycleRuntimeKtx ="2.6.1"
+lifecycleViewmodelKtx="2.6.1"
+lifecycleLivedataKtx="2.6.1"
+
+
+[libraries]
+androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+

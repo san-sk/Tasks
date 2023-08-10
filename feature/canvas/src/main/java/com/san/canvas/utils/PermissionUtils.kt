@@ -13,11 +13,8 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
-import com.san.canvas.BuildConfig
 import java.io.File
 
 
@@ -64,7 +61,7 @@ internal fun Context.saveImageOnExternal(bitmap: Bitmap): Uri? {
 
         uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         uri?.let {
-            contentResolver.openOutputStream(it).use { output ->
+            contentResolver.openOutputStream(it)?.use { output ->
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, output)
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

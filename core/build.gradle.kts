@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.san.core"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
@@ -52,8 +52,8 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     //hilt
-    api("com.google.dagger:hilt-android:2.44.2")
-    kapt("com.google.dagger:hilt-compiler:2.44.2")
+    api("com.google.dagger:hilt-android:2.47")
+    kapt("com.google.dagger:hilt-compiler:2.47")
     api("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     //Network
@@ -64,10 +64,10 @@ dependencies {
     api("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
     //Room
-    implementation("androidx.room:room-runtime:2.5.2")
+    api("androidx.room:room-runtime:2.5.2")
     kapt("androidx.room:room-compiler:2.5.2")
-    implementation("androidx.room:room-ktx:2.5.2")
-    implementation("androidx.room:room-testing:2.5.2")
+    api("androidx.room:room-ktx:2.5.2")
+    api("androidx.room:room-testing:2.5.2")
 
     // Timber
     api("com.jakewharton.timber:timber:5.0.1")
@@ -77,11 +77,11 @@ dependencies {
 
 
     //ktor
-    val ktor_version = "2.2.3"
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("io.ktor:ktor-client-android:$ktor_version")
-    implementation("io.ktor:ktor-client-serialization:$ktor_version")
-    implementation("io.ktor:ktor-client-logging:$ktor_version")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+    val ktor_version = "2.3.2"
+    api("io.ktor:ktor-client-core:$ktor_version")
+    api("io.ktor:ktor-client-android:$ktor_version")
+    api("io.ktor:ktor-client-serialization:$ktor_version")
+    api("io.ktor:ktor-client-logging:$ktor_version")
+    api("io.ktor:ktor-client-content-negotiation:$ktor_version")
 
 }

@@ -28,6 +28,7 @@ fun <ResultType, RequestType> networkBoundResource(
     } else {
         query().map { BoundResource.Success(it) }
     }
+        .flowOn(Dispatchers.IO)
 
     emitAll(flow)
 }
@@ -50,6 +51,7 @@ fun <ResultType> networkOnlyResource(
     }
         .onStart { emit(Resource.Loader(true)) }
         .onCompletion { emit(Resource.Loader(false)) }
+        .flowOn(Dispatchers.IO)
 
     emitAll(flow)
 }

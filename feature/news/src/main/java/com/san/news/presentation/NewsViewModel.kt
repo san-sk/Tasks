@@ -47,7 +47,6 @@ class NewsViewModel @Inject constructor(private val useCase: NewsUseCase) : View
                     when (it) {
 
                         is Resource.Error -> {
-
                         }
 
                         is Resource.Loader -> {

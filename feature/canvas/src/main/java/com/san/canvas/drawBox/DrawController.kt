@@ -1,8 +1,10 @@
 package com.san.canvas.drawBox
 
 import android.graphics.Bitmap
+import android.os.Parcelable
 import android.view.View
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -10,9 +12,11 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import kotlinx.parcelize.Parcelize
 
-
-class DrawController internal constructor(val trackHistory: (undoCount: Int, redoCount: Int) -> Unit = { _, _ -> }) {
+class DrawController internal constructor(
+    val trackHistory: (undoCount: Int, redoCount: Int) -> Unit = { _, _ -> }
+) {
 
     private val _redoPathList = mutableStateListOf<PathWrapper>()
     private val _undoPathList = mutableStateListOf<PathWrapper>()

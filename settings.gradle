@@ -16,5 +16,5 @@ rootProject.name = "tasks"
 include ':app'
 include ':core'
 include ':feature:news'
-include ':feature:chatgpt'
+include ':feature:bard'
 include ':feature:canvas'
